@@ -1,2 +1,2 @@
 # MahjongLottery
-App for a friendly mahjon-inspired lottery system
+App for a friendly mahjong-inspired lottery system
