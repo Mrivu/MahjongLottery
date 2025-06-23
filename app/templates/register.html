@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Mahjong Lottery</title>
+  </head>
+
+  <body>
+    <h1>Mahjong Lottery Register</h1>
+    <hr />
+    <form class="register" method="POST">
+      <p>
+        Username: <br />
+        <input type="text" name="username" required/>
+      </p>
+      <p>
+        Password: <br />
+        <input type="password" name="password1" required/>
+      </p>
+      <p>
+        Confirm password: <br />
+        <input type="password" name="password2" required/>
+      </p>
+      <input type="submit"/>
+      <register>
+        <a href="{{ url_for('bp.login') }}">Back</a>
+      </register>
+      <message>
+        <h1>{{ message }}</h1>
+      </message>
+    </form>
+  </body>
+</html>
