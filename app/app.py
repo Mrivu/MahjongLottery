@@ -3,6 +3,7 @@ from flask import Blueprint, redirect, render_template, request, session, url_fo
 import config
 import user_manager
 import dbhandler
+import lotterymachine
 
 app = Flask(__name__, static_url_path='/mahjonglottery/static', static_folder='static')
 app.secret_key = config.secret_key
@@ -76,7 +77,7 @@ def profile():
 def tiledraw():
     if request.method == "GET":
         user_manager.require_login(request)
-        return render_template("tiledraw.html")
+        return render_template("tiledraw.html", lotteryresult=lotterymachine.tiledraw(), all_tiles=lotterymachine.show_tiledraw_options())
 
     
 @bp.route("/handbuilder", methods = ["GET", "POST"])
