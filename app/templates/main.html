@@ -7,5 +7,13 @@
 
   <body>
     <h1>Logged in as {{ session.username }}</h1>
+    <nav class="navbar">
+      <a href="{{ url_for('bp.profile') }}">Profile</a>
+      <a href="{{ url_for('bp.tiledraw') }}">Mahjong Tile Draw Lottery</a>
+      <a href="{{ url_for('bp.handbuilder') }}">Mahjong Hand Builder Lottery</a>
+      <a href="{{ url_for('bp.seasonleaderboard') }}">Season leaderboards</a>
+      <a href="{{ url_for('bp.info') }}">Info</a>
+      <a href="{{ url_for('bp.logout') }}">Log out</a>
+    </nav>
   </body>
 </html>

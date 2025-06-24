@@ -2,6 +2,7 @@ from flask import Flask
 from flask import Blueprint, redirect, render_template, request, session, url_for
 import config
 import user_manager
+import dbhandler
 
 app = Flask(__name__, static_url_path='/mahjonglottery/static', static_folder='static')
 app.secret_key = config.secret_key
@@ -12,9 +13,20 @@ bp = Blueprint('bp', __name__)
 def root():
     return redirect(url_for('bp.login'))
 
+@bp.route("/logout", methods = ["GET", "POST"])
+def logout():
+    return user_manager.logout()
+
+@bp.route("/info", methods = ["GET"])
+def info():
+    user_manager.require_login(request)
+    return render_template("info.html")
+
 @bp.route("/", methods = ["GET", "POST"])
 def login():
     if request.method == "GET":
+        if "userID" in session:
+            return redirect(url_for('bp.main'))
         return render_template("login.html", message="")
     if request.method == "POST":
         username = request.form["username"]
@@ -45,5 +57,32 @@ def main():
     if request.method == "GET":
         user_manager.require_login(request)
         return render_template("main.html", message="")
+    
+@bp.route("/seasonleaderboard", methods = ["GET"])
+def seasonleaderboard():
+    if request.method == "GET": ## Remove if no post
+        user_manager.require_login(request)
+        leaderboard = dbhandler.get_leaderboard()
+        return render_template("seasonleaderboard.html", leaderboard=leaderboard)
+    
+@bp.route("/profile", methods = ["GET", "POST"])
+def profile():
+    if request.method == "GET":
+        user_manager.require_login(request)
+        return render_template("profile.html")
+
+    
+@bp.route("/tiledraw", methods = ["GET", "POST"])
+def tiledraw():
+    if request.method == "GET":
+        user_manager.require_login(request)
+        return render_template("tiledraw.html")
+
+    
+@bp.route("/handbuilder", methods = ["GET", "POST"])
+def handbuilder():
+    if request.method == "GET":
+        user_manager.require_login(request)
+        return render_template("handbuilder.html")
 
 app.register_blueprint(bp, url_prefix='/mahjonglottery/')

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Mahjong Lottery</title>
+  </head>
+
+  <body>
+    <h1>Logged in as {{ session.username }}</h1>
+    <div class="leaderboard">
+        {% for user in leaderboard %}
+        <p>
+            <a href="/forageTool/inventory/{{ folderName }}/1">{{ user.username }} - {{ user.seasonScore }}</a>
+        </p>
+        {% endfor %}
+        <a href="{{ url_for('bp.main') }}">Back</a>
+    </div>
+  </body>
+</html>
